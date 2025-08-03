@@ -1,0 +1,3 @@
+C:/USER/openbl/OpenBootloader/OpenBootloader/Target/ram_interface.c:56:9:OPENBL_RAM_Read	1
+C:/USER/openbl/OpenBootloader/OpenBootloader/Target/ram_interface.c:68:6:OPENBL_RAM_Write	3
+C:/USER/openbl/OpenBootloader/OpenBootloader/Target/ram_interface.c:89:6:OPENBL_RAM_JumpToAddress	1

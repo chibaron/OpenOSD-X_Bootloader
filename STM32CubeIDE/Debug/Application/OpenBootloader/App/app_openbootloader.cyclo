@@ -1,0 +1,3 @@
+C:/USER/openbl/OpenBootloader/OpenBootloader/App/app_openbootloader.c:89:6:OpenBootloader_Init	1
+C:/USER/openbl/OpenBootloader/OpenBootloader/App/app_openbootloader.c:129:6:OpenBootloader_DeInit	1
+C:/USER/openbl/OpenBootloader/OpenBootloader/App/app_openbootloader.c:139:6:OpenBootloader_ProtocolDetection	3
