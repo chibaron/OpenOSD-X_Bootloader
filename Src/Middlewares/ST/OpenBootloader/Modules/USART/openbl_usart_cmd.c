@@ -408,8 +408,10 @@ static void OPENBL_USART_EraseMemory(void)
   ErrorStatus error_value;
   uint8_t status = ACK_BYTE;
   uint8_t *ramaddress;
+  uint8_t page_safe;
 
   ramaddress = (uint8_t *) USART_RAM_Buf;
+  page_safe = 0;
 
   /* Check if the memory is not protected */
   if (OPENBL_MEM_GetReadOutProtectionStatus() != RESET)
@@ -486,6 +488,11 @@ static void OPENBL_USART_EraseMemory(void)
         data |= (uint8_t)(OPENBL_USART_ReadByte() & 0x00FFU);
         xor  ^= ((uint32_t)data & 0x00FFU);
 
+        /* bootloader(page0-7) area check */
+        if ( data < 8 ){
+            page_safe = 1;
+        }
+
         /* Only store data that fit in the buffer length */
         if (counter < (USART_RAM_BUFFER_SIZE / 2U))
         {
@@ -505,6 +512,9 @@ static void OPENBL_USART_EraseMemory(void)
       /* Check data integrity */
       if (OPENBL_USART_ReadByte() != (uint8_t) xor)
       {
+        status = NACK_BYTE;
+      }
+      else if ( page_safe == 1){
         status = NACK_BYTE;
       }
       else
@@ -643,7 +653,7 @@ static uint8_t OPENBL_USART_GetAddress(uint32_t *Address)
     *Address = ((uint32_t)data[3] << 24) | ((uint32_t)data[2] << 16) | ((uint32_t)data[1] << 8) | (uint32_t)data[0];
 
     /* Check if received address is valid or not */
-    if (OPENBL_MEM_GetAddressArea(*Address) == AREA_ERROR)
+    if (OPENBL_MEM_GetAddressArea(*Address) == AREA_ERROR || ( (uint32_t)Address <  0x08004000UL )) // bootloader addr = 0x08000000 - 0x08004000
     {
       status = NACK_BYTE;
     }
