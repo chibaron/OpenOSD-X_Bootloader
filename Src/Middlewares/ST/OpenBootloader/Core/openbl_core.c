@@ -251,6 +251,12 @@ void OPENBL_CommandProcess(void)
         }
         break;
 
+      case SYNC_7F_BYTE:
+        if (p_Interface->p_Cmd->Ack != NULL)
+        {
+          p_Interface->p_Cmd->Ack();
+        }
+        break;
       /* Unknown command opcode */
       default:
         if (p_Interface->p_Ops->SendByte != NULL)

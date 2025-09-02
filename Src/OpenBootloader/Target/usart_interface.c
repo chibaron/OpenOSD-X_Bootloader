@@ -130,6 +130,10 @@ uint8_t OPENBL_USART_GetCommandOpcode(void)
   /* Get the command opcode */
   command_opc = OPENBL_USART_ReadByte();
 
+  if (command_opc == SYNC_7F_BYTE){
+    return SYNC_7F_BYTE;
+  }
+
   /* Check the data integrity */
   if ((command_opc ^ OPENBL_USART_ReadByte()) != 0xFFU)
   {
