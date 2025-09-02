@@ -49,6 +49,7 @@ static void OPENBL_USART_ReadoutUnprotect(void);
 static void OPENBL_USART_EraseMemory(void);
 static void OPENBL_USART_WriteProtect(void);
 static void OPENBL_USART_WriteUnprotect(void);
+static void OPENBL_USART_Ack(void);
 
 
 static uint8_t OPENBL_USART_GetAddress(uint32_t *Address);
@@ -73,7 +74,8 @@ OPENBL_CommandsTypeDef OPENBL_USART_Commands =
   NULL,
   NULL,
   NULL,
-  NULL
+  NULL,
+  OPENBL_USART_Ack,
 };
 
 /* Exported functions---------------------------------------------------------*/
@@ -652,6 +654,12 @@ static uint8_t OPENBL_USART_GetAddress(uint32_t *Address)
   }
 
   return status;
+}
+
+static void OPENBL_USART_Ack(void)
+{
+    /* Acknowledge the host */
+    OPENBL_USART_SendByte(ACK_BYTE);
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

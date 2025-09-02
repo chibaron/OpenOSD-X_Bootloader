@@ -55,6 +55,7 @@ typedef struct
   void (*NsWriteUnprotect)(void);
   void (*NsReadoutProtect)(void);
   void (*NsReadoutUnprotect)(void);
+  void (*Ack)(void);
 } OPENBL_CommandsTypeDef;
 
 typedef struct
@@ -69,6 +70,7 @@ typedef struct
 #define NACK_BYTE                         0x1FU             /* No Acknowledge Byte ID */
 #define BUSY_BYTE                         0x76U             /* Busy Byte */
 #define SYNC_BYTE                         0xA5U             /* synchronization byte */
+#define SYNC_7F_BYTE                      0x7FU             /* synchronization byte */
 
 /* ---------------------- Open Bootloader Commands ---------------------------*/
 #define CMD_GET_COMMAND                   0x00U             /* Get commands command */
