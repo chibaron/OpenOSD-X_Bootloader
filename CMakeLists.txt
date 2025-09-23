@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_PROJECT_NAME openosd-x_bootloader)
 
+set(PRJ_VERSION "0.1.0")
+
 option(USE_RTT "Enable SEGGER RTT support" OFF)
 
 # Setup compiler settings
@@ -100,8 +102,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 )
 
 # Generate hex and bin files
-set(HEX_FILE ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex)
-set(BIN_FILE ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin)
+set(HEX_FILE ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}_v${PRJ_VERSION}.hex)
+set(BIN_FILE ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}_v${PRJ_VERSION}.bin)
+
+
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -Oihex $<TARGET_FILE:${PROJECT_NAME}> ${HEX_FILE}
